@@ -19,7 +19,7 @@ hydrate() {
     fi
 }
 
-readonly ROOT="~/personal/dev/env/.config "
+readonly ROOT="$HOME/personal/dev/env/.config"
 
 # Search Roots projects directories
 
