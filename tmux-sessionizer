@@ -19,18 +19,18 @@ hydrate() {
     fi
 }
 
-readonly ROOT="~/personal/dev/env/.config "
+readonly ROOTS=("$HOME" "$HOME/personal" "$HOME/personal/dev/env/.config")
 
 # Search Roots projects directories
 
-DIRECTORIES=("$ROOT")
+DIRECTORIES=("${ROOTS[@]}")
 
 function search_roots_directories_scan {
     for item in "$1"/*; do
         if [ -d "$item" ]; then
             if [ -f "$item/.tmux-scan" ]; then
                 DIRECTORIES+=($item)
-                
+ 
                 search_roots_directories_scan "$item"
             fi
         fi
@@ -40,7 +40,9 @@ function search_roots_directories_scan {
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    search_roots_directories_scan "$ROOT"
+    for ROOT in "${ROOTS[@]}"; do
+      search_roots_directories_scan "$ROOT"
+    done
 
     exclude_folder=""
 
